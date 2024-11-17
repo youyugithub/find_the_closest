@@ -29,7 +29,7 @@ is_closest<-function(x,target,filter=rep(T,length(x)),tie=seq(1,length(x))){
   if(any(filter)){
     allabsdiff<-abs(x-target)
     filterabsdiff<-allabsdiff[filter]
-    minabsdiff<-min(allabsdiff)
+    minabsdiff<-min(filterabsdiff,na.rm=T)
     closest<-allabsdiff==minabsdiff&filter
     idx<-which(closest&tie==min(tie[closest]))[1]
     return(1:length(x)==idx)

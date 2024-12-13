@@ -38,3 +38,37 @@ is_closest<-function(x,target,filter=rep(T,length(x)),tie=seq(1,length(x))){
   }
 }
 ```
+
+```
+is_closest<-function(
+    x,target,
+    filter1=rep(T,length(x)),
+    filter2=rep(F,length(x)),
+    filter3=rep(F,length(x)),
+    tie=seq(1,length(x))){
+  if(any(sapply(filter1,isTRUE))){
+    allabsdiff<-abs(x-target)
+    filterabsdiff<-allabsdiff[filter1]
+    minabsdiff<-min(filterabsdiff,na.rm=T)
+    closest<-allabsdiff==minabsdiff&filter1
+    idx<-which(closest&tie==min(tie[closest]))[1]
+    return(1:length(x)==idx)
+  }else if(any(sapply(filter2,isTRUE))){
+    allabsdiff<-abs(x-target)
+    filterabsdiff<-allabsdiff[filter2]
+    minabsdiff<-min(filterabsdiff,na.rm=T)
+    closest<-allabsdiff==minabsdiff&filter2
+    idx<-which(closest&tie==min(tie[closest]))[1]
+    return(1:length(x)==idx)
+  }else if(any(sapply(filter3,isTRUE))){
+    allabsdiff<-abs(x-target)
+    filterabsdiff<-allabsdiff[filter3]
+    minabsdiff<-min(filterabsdiff,na.rm=T)
+    closest<-allabsdiff==minabsdiff&filter3
+    idx<-which(closest&tie==min(tie[closest]))[1]
+    return(1:length(x)==idx)
+  }else{
+    return(rep(F,length(x)))
+  }
+}
+```
